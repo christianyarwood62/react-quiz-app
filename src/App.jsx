@@ -39,6 +39,8 @@ function reducer(state, action) {
 function App() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState); // the questions and status have been nested destructured here
 
+  const numQuestions = questions.length;
+
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
@@ -53,7 +55,7 @@ function App() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen />}
+        {status === "ready" && <StartScreen numQuestions={numQuestions} />}
       </Main>
     </div>
   );
