@@ -4,14 +4,13 @@ import Main from "./Main-comp";
 import { useEffect } from "react";
 import Loader from "./Loader";
 import Error from "./Error";
-import StartScreen from "./startScreen";
+import StartScreen from "./StartScreen";
 import Question from "./Question";
 
 const initialState = {
   questions: [],
-
-  // list of states: 'loading', 'error', 'ready', 'active', 'finished'
-  status: "loading",
+  status: "loading", // list of states: 'loading', 'error', 'ready', 'active', 'finished'
+  index: 0, // this keeps track of what question you are on
 };
 
 function reducer(state, action) {
@@ -43,7 +42,11 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState); // the questions and status have been nested destructured here
+  // the questions and status have been nested destructured here
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numQuestions = questions.length;
 
@@ -64,7 +67,7 @@ function App() {
         {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {status === "active" && <Question />}
+        {status === "active" && <Question question={questions[index]} />}
       </Main>
     </div>
   );
