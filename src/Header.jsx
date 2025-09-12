@@ -1,5 +1,3 @@
-import logo512 from "../public/logo512.png";
-
 function Header() {
   return (
     <header className="app-header">
