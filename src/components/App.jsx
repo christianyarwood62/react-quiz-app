@@ -11,6 +11,7 @@ const initialState = {
   questions: [],
   status: "loading", // list of states: 'loading', 'error', 'ready', 'active', 'finished'
   index: 0, // this keeps track of what question you are on
+  answer: null,
 };
 
 function reducer(state, action) {
@@ -36,6 +37,11 @@ function reducer(state, action) {
         ...state,
         status: "active",
       };
+    case "newAnswer":
+      return {
+        ...state,
+        answer: action.payload,
+      };
     default:
       throw new Error("Action unknown");
   }
@@ -43,7 +49,7 @@ function reducer(state, action) {
 
 function App() {
   // the questions and status have been nested destructured here
-  const [{ questions, status, index }, dispatch] = useReducer(
+  const [{ questions, status, index, answer }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -67,7 +73,13 @@ function App() {
         {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {status === "active" && <Question question={questions[index]} />}
+        {status === "active" && (
+          <Question
+            question={questions[index]}
+            dispatch={dispatch}
+            answer={answer}
+          />
+        )}
       </Main>
     </div>
   );
