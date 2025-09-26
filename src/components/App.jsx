@@ -69,8 +69,6 @@ function reducer(state, action) {
         status: "finished",
         highscore:
           state.points > state.highscore ? state.points : state.highscore,
-        points: action.points,
-        index: action.index,
       };
 
     case "restart":
@@ -85,7 +83,6 @@ function reducer(state, action) {
       return {
         ...state,
         secondsRemaining: state.secondsRemaining - 1,
-        status: state.secondsRemaining === 0 ? "finished" : state.status,
       };
 
     default:
@@ -112,6 +109,13 @@ function App() {
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
+
+  // useEffect(
+  //   function () {
+  //     localStorage.setItem("highscore", highscore);
+  //   },
+  //   [highscore]
+  // );
 
   return (
     <div className="app">
