@@ -48,7 +48,7 @@ function reducer(state, action) {
         status: "active",
         secondsRemaining: state.questions.length * SECS_PER_QUESTION,
       };
-    case "newAnswer":
+    case "newAnswer": {
       const question = state.questions.at(state.index);
 
       return {
@@ -59,6 +59,7 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
+    }
 
     case "nextQuestion":
       return { ...state, index: state.index + 1, answer: null };
