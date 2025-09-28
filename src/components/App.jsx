@@ -20,7 +20,7 @@ const initialState = {
   index: 0, // this keeps track of what question you are on
   answer: null,
   points: 0,
-  highscore: 0,
+  highscore: Number(localStorage.getItem("highscore")),
   secondsRemaining: null,
 };
 
